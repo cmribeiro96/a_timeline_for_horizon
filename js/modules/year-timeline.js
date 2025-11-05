@@ -1,6 +1,21 @@
 import {navigateToYear as navigateToYearEvent}  from './event-timeline.js';
+import {timelineEvents} from '../data/timeline-data.js';
 import {updateActivePeriod} from './historical-periods.js';
 
+function updateYearMarker(year) {
+  document.querySelectorAll('.year-marker').forEach((marker) => {
+    const yearLabel = marker.querySelector('.year-label');
+    marker.classList.toggle(
+      'active',
+      yearLabel && yearLabel.textContent === year
+    );
+  });
+
+  // Update active historical period
+  if (typeof updateActivePeriod === 'function') {
+    updateActivePeriod(year);
+  }
+}
 class YearTimelineScroll {
   constructor() {
     this.scrollContainer = document.getElementById('yearScrollContainer');
@@ -12,12 +27,12 @@ class YearTimelineScroll {
     this.init();
   }  
 
-  init() {
+  init() {    
 
     // Create year markers and alter selected eventCard
   const uniqueYears = [
     ...new Set(timelineEvents.map((event) => event.year)),
-  ].sort();
+  ].sort();  
   uniqueYears.forEach((year, index) => {
     const yearMarker = document.createElement('div');
     yearMarker.className = `year-marker ${index === 0 ? 'active' : ''}`;
@@ -39,33 +54,7 @@ class YearTimelineScroll {
       this.scrollToCurrentYear();
     }, 500);
   }
-
-
-  setupEventListeners() {
-    // Scroll automático ao navegar na timeline
-    if (typeof navigateToIndex === 'function') {
-      // Sobrescrever a função updateYearMarker para incluir scroll
-      this.overrideUpdateYearMarker();
-    }
-
-    // Drag para scroll em dispositivos com mouse
-    // this.setupDragScroll();    
-  }
-
-  updateYearMarker(year) {
-    document.querySelectorAll('.year-marker').forEach((marker) => {
-      const yearLabel = marker.querySelector('.year-label');
-      marker.classList.toggle(
-        'active',
-        yearLabel && yearLabel.textContent === year
-      );
-    });
-  
-    // Update active historical period
-    if (typeof updateActivePeriod === 'function') {
-      updateActivePeriod(year);
-    }
-  }
+ 
 
   overrideUpdateYearMarker() {
     // Guardar a função original
@@ -82,6 +71,19 @@ class YearTimelineScroll {
       this.scrollToYear(year);
     };
   }
+
+
+  setupEventListeners() {
+    // Scroll automático ao navegar na timeline
+    if (typeof navigateToIndex === 'function') {
+      // Sobrescrever a função updateYearMarker para incluir scroll
+      this.overrideUpdateYearMarker();
+    }
+
+    // Drag para scroll em dispositivos com mouse
+    // this.setupDragScroll();    
+  }
+ 
 
   // setupDragScroll() {
   //   this.scrollContainer.addEventListener('mousedown', (e) => {
@@ -167,4 +169,6 @@ class YearTimelineScroll {
 }
 
 export default YearTimelineScroll;
-export { updateYearMarker };
+export { 
+ updateYearMarker, 
+};

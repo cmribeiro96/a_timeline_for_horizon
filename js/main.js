@@ -2,8 +2,7 @@
 import {    
   initializeTimeline,
   navigateToIndex,
-  navigateToYear,
-  updateYearMarker,
+  navigateToYear,  
 } from './modules/event-timeline.js';
 import {
   initializeHistoricalPeriods,
@@ -87,10 +86,8 @@ window.playSound = playSound;
 window.harmonicMusic = harmonicMusic;
 window.updateActivePeriod = updateActivePeriod;
 window.updateCarouselArrows = updateCarouselArrows;
-window.updateYearMarker = updateYearMarker; // Exportar para o scroll system
 window.repositionSpheres = repositionSpheres;
-window.repositionSpheresVerticallyWithCustomOffset =
-  repositionSpheresVerticallyWithCustomOffset;
+window.repositionSpheresVerticallyWithCustomOffset = repositionSpheresVerticallyWithCustomOffset;
 
 //spheres distance
 
@@ -119,8 +116,7 @@ export {
   navigateToYear,
   playSound,
   updateActivePeriod,
-  updateCarouselArrows,
-  updateYearMarker,    
+  updateCarouselArrows,      
   repositionSpheres,
   repositionSpheresVerticallyWithCustomOffset,
 };

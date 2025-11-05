@@ -142,7 +142,7 @@ function updateYearMarkerFromCurrentIndex() {
   let year;
   year = currentElement.dataset.year || currentElement.textContent;
 
-  if (year) updateYearMarker(year);
+  if (year){ updateYearMarker(year) };
 }
 
 function updateButtons() {
