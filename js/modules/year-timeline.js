@@ -1,3 +1,6 @@
+import {navigateToYear as navigateToYearEvent}  from './event-timeline.js';
+import {updateActivePeriod} from './historical-periods.js';
+
 class YearTimelineScroll {
   constructor() {
     this.scrollContainer = document.getElementById('yearScrollContainer');
@@ -7,9 +10,26 @@ class YearTimelineScroll {
     this.scrollLeft = 0;
 
     this.init();
-  }
+  }  
 
   init() {
+
+    // Create year markers and alter selected eventCard
+  const uniqueYears = [
+    ...new Set(timelineEvents.map((event) => event.year)),
+  ].sort();
+  uniqueYears.forEach((year, index) => {
+    const yearMarker = document.createElement('div');
+    yearMarker.className = `year-marker ${index === 0 ? 'active' : ''}`;
+    yearMarker.setAttribute('data-year', year); // Adicionar data attribute
+    yearMarker.innerHTML = `
+      <div class="year-dot"></div>
+      <span class="year-label">${year}</span>
+    `;
+    yearMarker.addEventListener('click', () => navigateToYearEvent(year));
+    yearMarkers.appendChild(yearMarker);
+  });
+
     if (!this.scrollContainer || !this.yearMarkers) return;
 
     this.setupEventListeners();
@@ -20,6 +40,7 @@ class YearTimelineScroll {
     }, 500);
   }
 
+
   setupEventListeners() {
     // Scroll automático ao navegar na timeline
     if (typeof navigateToIndex === 'function') {
@@ -29,6 +50,21 @@ class YearTimelineScroll {
 
     // Drag para scroll em dispositivos com mouse
     // this.setupDragScroll();    
+  }
+
+  updateYearMarker(year) {
+    document.querySelectorAll('.year-marker').forEach((marker) => {
+      const yearLabel = marker.querySelector('.year-label');
+      marker.classList.toggle(
+        'active',
+        yearLabel && yearLabel.textContent === year
+      );
+    });
+  
+    // Update active historical period
+    if (typeof updateActivePeriod === 'function') {
+      updateActivePeriod(year);
+    }
   }
 
   overrideUpdateYearMarker() {
@@ -131,3 +167,4 @@ class YearTimelineScroll {
 }
 
 export default YearTimelineScroll;
+export { updateYearMarker };

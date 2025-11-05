@@ -1,4 +1,4 @@
-import { getCurrentIndex, getMaxIndex } from '../data/timeline-data.js';
+import { getCurrentIndex, getMaxIndex} from './event-timeline.js';
 import { throttle } from './utils.js';
 
 function setupKeyboardNavigation() {

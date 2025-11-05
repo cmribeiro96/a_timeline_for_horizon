@@ -1,6 +1,5 @@
 // Importações de módulos
-import { getCurrentIndex, getMaxIndex } from './data/timeline-data.js';
-import {
+import {    
   initializeTimeline,
   navigateToIndex,
   navigateToYear,
@@ -121,9 +120,7 @@ export {
   playSound,
   updateActivePeriod,
   updateCarouselArrows,
-  updateYearMarker,
-  getCurrentIndex,
-  getMaxIndex,
+  updateYearMarker,    
   repositionSpheres,
   repositionSpheresVerticallyWithCustomOffset,
 };
