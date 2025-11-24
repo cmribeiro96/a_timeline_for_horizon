@@ -29,8 +29,6 @@ import {
   repositionSpheresVerticallyWithCustomOffset,
 } from './modules/sphereUtils.js';
 
-import { searchTerms } from './modules/search-control.js';
-
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM fully loaded - initializing application');
@@ -71,9 +69,6 @@ function initializeApplication() {
   // Inicializar controles de música
   initHarmonicMusicControls();
   initHarmonicMusic();
-
-  // Inicializar o modal de busca
-  searchTerms();
 
   // Apenas para desenvolvimento
   // if (
