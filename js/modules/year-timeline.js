@@ -78,48 +78,7 @@ class YearTimelineScroll {
     if (typeof navigateToIndex === 'function') {
       // Sobrescrever a função updateYearMarker para incluir scroll
       this.overrideUpdateYearMarker();
-    }
-
-    // Drag para scroll em dispositivos com mouse
-    // this.setupDragScroll();    
-  }
- 
-
-  // setupDragScroll() {
-  //   this.scrollContainer.addEventListener('mousedown', (e) => {
-  //     this.isDragging = true;
-  //     this.startX = e.pageX - this.scrollContainer.offsetLeft;
-  //     this.scrollLeft = this.scrollContainer.scrollLeft;
-  //     this.scrollContainer.style.cursor = 'grabbing';
-  //     this.scrollContainer.style.userSelect = 'none';
-  //   });
-
-  //   document.addEventListener('mousemove', (e) => {
-  //     if (!this.isDragging) return;
-  //     e.preventDefault();
-  //     const x = e.pageX - this.scrollContainer.offsetLeft;
-  //     const walk = (x - this.startX) * 2;
-  //     this.scrollContainer.scrollLeft = this.scrollLeft - walk;
-  //   });
-
-  //   document.addEventListener('mouseup', () => {
-  //     this.isDragging = false;
-  //     this.scrollContainer.style.cursor = 'grab';
-  //     this.scrollContainer.style.userSelect = '';
-  //   });
-
-  //   this.scrollContainer.addEventListener('mouseleave', () => {
-  //     this.isDragging = false;
-  //     this.scrollContainer.style.cursor = 'grab';
-  //     this.scrollContainer.style.userSelect = '';
-  //   });
-  // }
-
-  scrollBy(amount) {
-    this.scrollContainer.scrollBy({
-      left: amount,
-      behavior: 'smooth',
-    });
+    }    
   }
 
   scrollToYear(year) {

@@ -28,6 +28,7 @@ import {
   repositionSpheres,
   repositionSpheresVerticallyWithCustomOffset,
 } from './modules/sphereUtils.js';
+import { searchTerms } from './modules/search-control.js';
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function () {
@@ -70,6 +71,10 @@ function initializeApplication() {
   initHarmonicMusicControls();
   initHarmonicMusic();
 
+
+   // Inicializar o modal de busca
+   searchTerms();
+
   // Apenas para desenvolvimento
   // if (
   //   window.location.hostname === 'localhost' ||
@@ -99,10 +104,11 @@ function updateSpherePositions() {
   });
 
   // Deslocamento sutil da Scrollbar da página para alinhamento das esferas
-  if (document.body.scrollHeight > window.innerHeight) {
-    window.scrollBy(0, 1);
-    window.scrollBy(0, -1);
-  }
+  // if (!scrollExecuted && document.body.scrollHeight > window.innerHeight) {
+  //   window.scrollBy(0, 1);
+  //   window.scrollBy(0, -1);
+  //   scrollExecuted = true;
+  // }
 }
 
 window.updateSpherePositions = updateSpherePositions;
