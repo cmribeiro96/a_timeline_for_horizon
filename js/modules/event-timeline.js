@@ -1,6 +1,6 @@
-import {timelineEvents} from '../data/timeline-data.js';
-import {updateYearMarker} from './year-timeline.js';
-import {groupEventsByYear} from './utils.js';
+import { timelineEvents } from '../data/timeline-data.js';
+import { updateYearMarker } from './year-timeline.js';
+import { groupEventsByYear } from './utils.js';
 import { updateSpherePositions } from '../main.js';
 
 // Estado global como objeto para ser mutável
@@ -12,35 +12,43 @@ const timelineState = {
   maxPosition: 0,
 };
 // Funções para acessar e modificar o estado
-function getCurrentIndex() { //exportado
+function getCurrentIndex() {
+  //exportado
   return timelineState.currentIndex;
 }
 
-function setCurrentIndex(value) { //não precisa ser exportado
+function setCurrentIndex(value) {
+  //não precisa ser exportado
   timelineState.currentIndex = value;
 }
 
-function getMaxIndex() { //exportado
+function getMaxIndex() {
+  //exportado
   return timelineState.maxIndex;
 }
 
-function setMaxIndex(value) { // não precisa ser exportado
+function setMaxIndex(value) {
+  // não precisa ser exportado
   timelineState.maxIndex = value;
 }
 
-function getCurrentPosition() { // não precisa ser exportado
+function getCurrentPosition() {
+  // não precisa ser exportado
   return timelineState.currentPosition;
 }
 
-function setCurrentPosition(value) { //não precisa ser exportado
+function setCurrentPosition(value) {
+  //não precisa ser exportado
   timelineState.currentPosition = value;
 }
 
-function getEventWidth() { //não precisa ser exportado
+function getEventWidth() {
+  //não precisa ser exportado
   return timelineState.eventWidth;
 }
 
-function setMaxPosition(value) { //não precisa ser exportado
+function setMaxPosition(value) {
+  //não precisa ser exportado
   timelineState.maxPosition = value;
 }
 
@@ -73,9 +81,7 @@ function initializeTimeline() {
     eventsByYear[year].forEach((event) => {
       const eventElement = createEventElement(event, year);
       eventElement.addEventListener('click', () => {
-        const elementIndex = Array.from(timeline.children).indexOf(
-          eventElement
-        );
+        const elementIndex = Array.from(timeline.children).indexOf(eventElement);
         if (typeof playSound === 'function') {
           playSound('select', 0.3);
         }
@@ -96,8 +102,7 @@ function initializeTimeline() {
   });
 
   nextBtn.addEventListener('click', () => {
-    if (getCurrentIndex() < getMaxIndex())
-      navigateToIndex(getCurrentIndex() + 1);
+    if (getCurrentIndex() < getMaxIndex()) navigateToIndex(getCurrentIndex() + 1);
   });
 
   // Initialize first state
@@ -116,14 +121,8 @@ function createEventElement(event, year) {
       <div class="event-header">
         <div class="event-date">
           <h3 class="event-title">${event.title}</h3>
-          ${
-            event.yearTitleCard
-              ? `<span class="event-month">${event.yearTitleCard}</span>`
-              : ''
-          }
-          ${
-            event.month ? `<span class="event-month">${event.month}</span>` : ''
-          }
+          ${event.yearTitleCard ? `<span class="event-month">${event.yearTitleCard}</span>` : ''}
+          ${event.month ? `<span class="event-month">${event.month}</span>` : ''}
           ${event.day ? `<span class="event-day">${event.day}</span>` : ''}
         </div>
       </div>
@@ -143,7 +142,9 @@ function updateYearMarkerFromCurrentIndex() {
   let year;
   year = currentElement.dataset.year || currentElement.textContent;
 
-  if (year){ updateYearMarker(year) };
+  if (year) {
+    updateYearMarker(year);
+  }
 }
 
 function updateButtons() {
@@ -158,7 +159,6 @@ function updateButtons() {
   }
 }
 
-
 function navigateToIndex(newIndex) {
   const currentMaxIndex = getMaxIndex();
   newIndex = Math.max(0, Math.min(newIndex, currentMaxIndex));
@@ -171,11 +171,7 @@ function navigateToIndex(newIndex) {
   const containerWidth = container.offsetWidth;
 
   let halfScreen = containerWidth / 2;
-  let newPosition =
-    halfScreen -
-    getCurrentIndex() * getEventWidth() -
-    getEventWidth() / 2 -
-    getCurrentIndex() * 32;
+  let newPosition = halfScreen - getCurrentIndex() * getEventWidth() - getEventWidth() / 2 - getCurrentIndex() * 32;
 
   setCurrentPosition(newPosition);
   timeline.style.transform = `translateX(${getCurrentPosition()}px)`;
@@ -184,27 +180,21 @@ function navigateToIndex(newIndex) {
     playSound('navigate', 0.2);
   }
 
-  updateActiveElement().then(() => {  
-  updateButtons();
-  updateYearMarkerFromCurrentIndex();
+  updateActiveElement().then(() => {
+    updateButtons();
+    updateYearMarkerFromCurrentIndex();
 
-  
-  if (typeof updateSpherePositions === 'function') {
-    console.log('chamando no navigateToIndex');
-    updateSpherePositions();
-  }
-
+    if (typeof updateSpherePositions === 'function') {
+      console.log('chamando no navigateToIndex');
+      updateSpherePositions();
+    }
   });
 }
 
 function navigateToYear(targetYear) {
-  const eventYearTitle = document.querySelector(
-    `.year-title[data-year="${targetYear}"]`
-  );
+  const eventYearTitle = document.querySelector(`.year-title[data-year="${targetYear}"]`);
   if (eventYearTitle) {
-    const elementIndex = Array.from(
-      document.getElementById('timeline').children
-    ).indexOf(eventYearTitle);
+    const elementIndex = Array.from(document.getElementById('timeline').children).indexOf(eventYearTitle);
     navigateToIndex(elementIndex);
   }
   if (typeof playSound === 'function') {
@@ -213,37 +203,59 @@ function navigateToYear(targetYear) {
 }
 
 function updateActiveElement() {
-  const animationPromise = new Promise((resolve) =>{
+  return new Promise((resolve) => {
+    const timeline = document.getElementById('timeline');
+    if (!timeline) {
+      resolve();
+      return;
+    }
 
-  const timeline = document.getElementById('timeline');
-  if (!timeline) return;
+    const currentElement = timeline.children[getCurrentIndex()];
+    if (!currentElement) {
+      resolve();
+      return;
+    }
 
-  const currentElement = timeline.children[getCurrentIndex()];
-  if (!currentElement) return;
+    // Remove active classes
+    document.querySelectorAll('.timeline-event, .year-title').forEach((el) => {
+      el.classList.remove('active', 'active-year');
+    });
 
-  // Remove active classes
-  document.querySelectorAll('.timeline-event, .year-title').forEach((el) => {
-    el.classList.remove('active', 'active-year');
+    // Add appropriate active class
+    if (currentElement.classList.contains('timeline-event')) {
+      currentElement.classList.add('active');
+      const year = currentElement.dataset.year;
+      const yearTitle = document.querySelector(`.year-title[data-year="${year}"]`);
+      if (yearTitle) yearTitle.classList.add('active-year');
+
+      // Esperar a transição do .event-description terminar
+      const eventDescription = currentElement.querySelector('.event-description');
+      if (eventDescription) {
+        const handleTransitionEnd = (e) => {
+          // Garantir que é a transição do max-height que terminou
+          if (e.propertyName === 'max-height' && e.target === eventDescription) {
+            eventDescription.removeEventListener('transitionend', handleTransitionEnd);
+            resolve();
+          }
+        };
+
+        eventDescription.addEventListener('transitionend', handleTransitionEnd);
+
+        // Timeout de segurança caso a transição não dispare
+        setTimeout(() => {
+          eventDescription.removeEventListener('transitionend', handleTransitionEnd);
+          resolve();
+        }, 500); // 500ms = 0.4s da transição + margem de segurança
+      } else {
+        resolve();
+      }
+    } else if (currentElement.classList.contains('year-title')) {
+      currentElement.classList.add('active-year');
+      resolve();
+    } else {
+      resolve();
+    }
   });
-
-  // Add appropriate active class
-  if (currentElement.classList.contains('timeline-event')) {
-    currentElement.classList.add('active');
-    const year = currentElement.dataset.year;
-    const yearTitle = document.querySelector(
-      `.year-title[data-year="${year}"]`
-    );
-    if (yearTitle) yearTitle.classList.add('active-year');
-  } else if (currentElement.classList.contains('year-title')) {
-    currentElement.classList.add('active-year');
-  };
-
-  resolve();
-
-});
-  
-  return animationPromise;
-
 }
 
 function enhanceYearTitles() {
@@ -254,12 +266,4 @@ function enhanceYearTitles() {
   });
 }
 
-export {
-  initializeTimeline,
-  navigateToIndex,
-  navigateToYear,
-  getCurrentIndex,  
-  getMaxIndex,  
-  updateActiveElement,
-  updateButtons,
-};
+export { initializeTimeline, navigateToIndex, navigateToYear, getCurrentIndex, getMaxIndex, updateActiveElement, updateButtons };
