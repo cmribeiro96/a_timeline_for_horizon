@@ -1,0 +1,134 @@
+/* Historical Periods Timeline */
+
+.superior-part{
+    padding-top: 5vh;  
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;     
+  }
+  
+  .historical-periods {    
+    width: -webkit-fill-available;  
+  }
+  
+  .periods-track{
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .periods-container {  
+    position: relative;  
+    height: 100%;
+    margin: 0 50px;
+  }
+  
+  .periods-line {  
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--color-period-line),
+      var(--color-period-range-end)
+    );
+  }
+  
+  .periods-track {
+    padding-bottom: 1%;
+    height: 100%;
+  }
+  
+  .period-marker {    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease; 
+    
+  }
+  
+  .period-marker .period-dot {
+    margin-bottom: 0.9rem; /* Remove margin-bottom já que usamos flex-direction: column-reverse */
+    margin-top: 0.3rem; /* Adiciona espaço acima do dot */
+  }
+  
+  .period-range {
+      
+    height: 26px;
+    background: linear-gradient(
+      90deg,
+      var(--color-period-range-start),
+      var(--color-period-range-end)
+    );
+    border-radius: 10px;
+    transform: translateY(-50%);
+    border: 1px solid rgba(255, 215, 0, 0.6);
+    box-shadow: 0 2px 8px rgba(255, 165, 0, 0.3);  
+  } 
+  .period-dot {
+    width: 16px;
+    height: 16px;
+    background: var(--color-period-dot);
+    border-radius: 50%;
+    margin-bottom: 0.3rem;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3), 0 2px 6px rgba(255, 165, 0, 0.4);
+    transition: all 0.3s ease;
+    border: 2px solid var(--color-period-dot-border);
+  }
+  
+  .period-label {
+    color: var(--color-period-label);
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    background: rgba(255, 215, 0, 0.1);
+    padding: 0.1rem 0.8rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .period-marker:hover .period-dot {
+    transform: scale(1, 1.3);
+    background: var(--color-gold-light);
+    box-shadow: 0 0 0 5px rgba(255, 215, 0, 0.4),
+      0 4px 12px rgba(255, 165, 0, 0.6);
+  }
+  
+  .period-marker:hover .period-label {
+    background: rgba(255, 215, 0, 0.2);
+    border-color: rgba(255, 215, 0, 0.6);
+    transform: translateY(-2px);
+  }
+  
+  .period-marker.active .period-dot {
+    animation: periodPulse 2s ease-in-out infinite;
+  }
+  
+  .period-marker.active .period-label {
+    background: rgba(255, 215, 0, 0.25);
+    border-color: var(--color-period-dot);
+    color: var(--color-text-primary);
+    font-weight: bold;
+  }
+  
+  @keyframes periodPulse {
+    0%,
+    100% {
+      transform: scale(1, 1);
+      box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3),
+        0 2px 6px rgba(255, 165, 0, 0.4);
+    }
+    50% {
+      transform: scale(1.0);
+      box-shadow: 0 0 0 6px rgb(95, 255, 111), 0 4px 12px rgba(255, 165, 0, 0.6);
+    }
+  }
+  
+  .active-period {
+    background: linear-gradient(
+      90deg,
+      var(--color-period-active),
+      var(--color-period-range-end)
+    ) !important;
+    border-color: var(--color-period-dot) !important;
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.4) !important;
+  }

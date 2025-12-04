@@ -1,0 +1,156 @@
+@font-face {
+  font-family: 'Futura PT';
+  src: url('fonts/FuturaPT-Bold.woff2') format('woff2'),
+    url('fonts/FuturaPT-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Futura PT';
+  src: url('fonts/FuturaPT-ExtraBold.woff2') format('woff2'),
+    url('fonts/FuturaPT-ExtraBold.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+}
+
+/* Animação para efeito de flutuação */
+@keyframes flutuar {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes yearPulse {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes dotPulse {
+  0%,
+  100% {
+    transform: translateY(0);
+    background: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(255, 126, 95, var(--opacity-medium)),
+      0 2px 8px rgba(255, 126, 95, var(--opacity-medium));
+  }
+  50% {
+    background: var(--color-accent-light);
+    box-shadow: 0 0 0 6px rgba(255, 126, 95, var(--opacity-medium)),
+      0 4px 12px rgba(255, 126, 95, var(--opacity-high));
+  }
+}
+
+@keyframes trianglePulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1, 1);
+    border-bottom-color: var(--color-accent);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1, 1.1);
+    border-bottom-color: var(--color-accent-light);
+    filter: drop-shadow(0 6px 12px var(--color-accent-light));
+  }
+}
+
+@keyframes labelPulse {
+  0%,
+  100% {
+    color: var(--color-primary);
+    transform: scale(1, 1);
+  }
+  50% {
+    color: var(--color-accent-light);
+    transform: scale(1, 1.05);
+  }
+}
+
+@keyframes pulseBorder {
+  0% {
+    border-color: rgba(255, 126, 95, var(--opacity-medium));
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 126, 95, 0.2);
+  }
+  50% {
+    border-color: rgba(119, 255, 95, var(--opacity-high));
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5),
+      0 0 0 3px var(--color-accent-light);
+  }
+  100% {
+    border-color: rgba(255, 126, 95, var(--opacity-medium));
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 126, 95, 0.2);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .timeline-container {
+    padding: 0 1rem;
+  }
+  .year-markers {
+    margin-top: 2vh;
+    gap: 1.5rem;
+    padding: 0 2rem;
+  }
+
+  .year-label {
+    font-size: 0.8rem;
+  }
+
+  .scroll-indicator {
+    width: 25px;
+    height: 40px;
+  }
+
+  .timeline {
+    gap: 1rem;
+  }
+
+  .timeline-event {
+    flex: 0 0 240px;
+  }
+
+  .year-title {
+    flex: 0 0 160px;
+    font-size: 1.8rem;
+  }
+
+  .popup-container {
+    width: 95%;
+    margin: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline-container {
+    padding: 0 0.5rem;
+  }
+
+  .timeline-event {
+    flex: 0 0 220px;
+  }
+
+  .year-title {
+    flex: 0 0 140px;
+    font-size: 1.6rem;
+    padding: 1rem 0.5rem;
+  }
+
+  .nav-btn {
+    padding: 0.8rem 1.2rem;
+    min-width: 120px;
+    font-size: 0.9rem;
+  }
+}

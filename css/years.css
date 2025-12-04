@@ -1,0 +1,286 @@
+.year-container {
+    display: contents;
+  }
+  
+  .year-title {
+    flex: 0 0 220px;
+    margin: 0 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--scale-year-title);
+    font-weight: 800;
+    color: var(--color-primary);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 126, 95, 0.15) 0%,
+      rgba(254, 180, 123, 0.1) 100%
+    );
+    border-radius: 20px;
+    padding: 1.5rem 0.8rem;
+    border: 3px solid rgba(255, 126, 95, var(--opacity-medium));
+    position: relative;
+    box-shadow: 0 10px 30px rgba(255, 126, 95, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, var(--opacity-low));
+    backdrop-filter: blur(15px);
+    text-shadow: 0 2px 10px rgba(255, 126, 95, var(--opacity-medium));
+    transition: all 0.4s ease;
+    z-index: 3;
+    transform: scale(1, 1);
+  }
+  
+  .year-title::before {
+    content: '';
+    position: absolute;
+    top: 48%;
+    left: -25px;
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(
+      135deg,
+      var(--color-primary),
+      var(--color-secondary)
+    );
+    border-radius: 50%;
+    transform: translateY(-50%);  
+    z-index: 4;
+    box-shadow: 0 0 0 8px rgba(255, 126, 95, var(--opacity-medium)),
+      0 0 20px rgba(255, 126, 95, 0.5);
+    transition: all 0.4s ease;
+  }
+  
+  .year-title:hover {
+    transform: translateY(-5px) scale(1, 1.02);
+    box-shadow: 0 15px 40px rgba(255, 126, 95, var(--opacity-medium)),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 126, 95, var(--opacity-high));
+  }
+  
+  .year-title-container {
+    position: relative;
+    display: contents;
+  }
+  
+  .year-title.integrated {
+    background: rgba(255, 126, 95, var(--opacity-low));
+    border: 2px dashed rgba(255, 126, 95, 0.5);
+    color: var(--color-primary);
+    font-size: 2.8rem;
+    font-weight: 600;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .year-title.integrated::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--color-primary),
+      var(--color-secondary)
+    );
+  }
+  
+  .year-title.integrated::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--color-primary),
+      var(--color-secondary)
+    );
+  }
+  
+  .year-title.active-year {
+    text-shadow: 
+      -1px -1px 0 black,
+       1px -1px 0 black,
+      -1px  1px 0 black,
+       1px  1px 0 black;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 126, 95, 0.25) 0%,
+      rgba(254, 180, 123, 0.2) 100%
+    );
+    border-color: var(--color-primary);
+    box-shadow: 0 0 30px rgba(255, 126, 95, var(--opacity-medium)),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: scale(1, 1.05);
+  }
+  
+  .year-title.active-year::before {
+    transform: translateY(-50%) scale(1.2);
+    box-shadow: 0 0 0 10px rgba(255, 126, 95, var(--opacity-medium)),
+      0 0 30px rgba(255, 126, 95, var(--opacity-high));
+  }
+  
+  .year-decoration {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .year-decoration::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(255, 255, 255, var(--opacity-low)),
+      transparent
+    );
+    transform: rotate(45deg);
+    animation: shine 3s infinite;
+  }
+  
+  @keyframes shine {
+    0% {
+      transform: rotate(45deg) translateX(-100%);
+    }
+    100% {
+      transform: rotate(45deg) translateX(100%);
+    }
+  }
+
+  /* Year Navigation Timeline */
+
+.middle-part {
+    margin-top: 2vh;  
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+  .year-navigation-container {    
+    margin: 0 auto 0 auto; /* Centraliza horizontalmente */
+    position: relative;
+  }
+  
+  .year-timeline {
+    position: relative;
+  }
+  
+  .year-timeline-scroll-container {
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) transparent;
+    scroll-behavior: smooth;
+  }
+
+  .year-timeline-scroll-container::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .year-timeline-scroll-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+  }
+  
+  .year-timeline-scroll-container::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 3px;
+  }
+  
+  .year-timeline-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: var(--color-secondary);
+  }
+  
+  .year-timeline-line {   
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--color-primary) 20%,
+      var(--color-primary) 80%,
+      transparent 100%
+    );
+  }
+  
+  .year-markers {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .year-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+  
+  .year-marker:hover {
+    transform: translateY(-2px);
+  }
+  
+  .year-marker.active {  
+    animation: yearPulse 2s ease-in-out infinite;
+  }
+  
+  .year-dot {  
+    width: 12px;
+    height: 12px;
+    background: var(--color-primary-dark);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    margin-bottom: 0.5rem;
+  }
+  
+  .year-marker.active .year-dot {
+    background: var(--color-primary);
+    transform: scale(1, 1.2);
+    box-shadow: 0 0 15px var(--color-primary-glow);
+    animation: dotPulse 2s ease-in-out infinite;  
+  }
+  
+  .year-marker.active .year-label {
+    color: var(--color-primary);
+    font-weight: 700;
+    animation: labelPulse 2s ease-in-out infinite;
+  }
+
+  .animated-sphere {
+    position: absolute;  
+    top: 10px;
+    right: 10px;    
+  }
+
+  .year-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+  
+  .year-marker:hover .year-dot {
+    transform: scale(1, 1.2);
+    background: var(--color-accent);
+  }
+  
+  .year-marker:hover .year-label {
+    color: var(--color-accent);
+    transform: scale(1, 1.1); /* Aumentado de scale(1) */
+    font-weight: 700;
+  }
