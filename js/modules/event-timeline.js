@@ -1,6 +1,7 @@
-import { timelineEvents } from '../data/timeline-data.js';
+import {timelineEvents} from '../data/timeline-data.js';
 import {updateYearMarker} from './year-timeline.js';
-import { groupEventsByYear } from './utils.js';
+import {groupEventsByYear} from './utils.js';
+import { updateSpherePositions } from '../main.js';
 
 // Estado global como objeto para ser mutável
 const timelineState = {
@@ -168,7 +169,6 @@ function navigateToIndex(newIndex) {
   if (!timeline || !container) return;
 
   const containerWidth = container.offsetWidth;
-  const timelineWidth = timeline.scrollWidth;
 
   let halfScreen = containerWidth / 2;
   let newPosition =
@@ -184,16 +184,16 @@ function navigateToIndex(newIndex) {
     playSound('navigate', 0.2);
   }
 
-  updateActiveElement();
+  updateActiveElement().then(() => {  
   updateButtons();
   updateYearMarkerFromCurrentIndex();
 
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      if (typeof updateSpherePositions === 'function') {
-        updateSpherePositions();
-      }
-    });
+  
+  if (typeof updateSpherePositions === 'function') {
+    console.log('chamando no navigateToIndex');
+    updateSpherePositions();
+  }
+
   });
 }
 
@@ -213,6 +213,8 @@ function navigateToYear(targetYear) {
 }
 
 function updateActiveElement() {
+  const animationPromise = new Promise((resolve) =>{
+
   const timeline = document.getElementById('timeline');
   if (!timeline) return;
 
@@ -234,7 +236,14 @@ function updateActiveElement() {
     if (yearTitle) yearTitle.classList.add('active-year');
   } else if (currentElement.classList.contains('year-title')) {
     currentElement.classList.add('active-year');
-  }
+  };
+
+  resolve();
+
+});
+  
+  return animationPromise;
+
 }
 
 function enhanceYearTitles() {

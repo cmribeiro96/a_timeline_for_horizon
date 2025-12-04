@@ -24,11 +24,11 @@ import {
 } from './modules/sound-system.js';
 import { initializePopup /*addDebugButtons*/ } from './modules/popup.js';
 import YearTimelineScroll from './modules/year-timeline.js';
+import { searchTerms } from './modules/search-control.js';
 import {
   repositionSpheres,
   repositionSpheresVerticallyWithCustomOffset,
 } from './modules/sphereUtils.js';
-import { searchTerms } from './modules/search-control.js';
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function () {
@@ -84,19 +84,12 @@ function initializeApplication() {
   // }
 }
 
-// Make functions globally available if needed
-window.navigateToIndex = navigateToIndex;
-window.navigateToYear = navigateToYear;
-window.playSound = playSound;
-window.harmonicMusic = harmonicMusic;
-window.updateActivePeriod = updateActivePeriod;
-window.updateCarouselArrows = updateCarouselArrows;
-window.repositionSpheres = repositionSpheres;
-window.repositionSpheresVerticallyWithCustomOffset = repositionSpheresVerticallyWithCustomOffset;
-
 //spheres distance
 
+// let scrollExecuted = false;
+
 function updateSpherePositions() {
+  console.log('chamando no main');
   repositionSpheres(); // horizontal
   repositionSpheresVerticallyWithCustomOffset({
     offsetForEvent: -100,
@@ -113,9 +106,21 @@ function updateSpherePositions() {
 
 window.updateSpherePositions = updateSpherePositions;
 
-document.addEventListener('DOMContentLoaded', updateSpherePositions);
-window.addEventListener('resize', updateSpherePositions);
+// document.addEventListener('DOMContentLoaded', updateSpherePositions);
+// window.addEventListener('resize', updateSpherePositions);
 window.addEventListener('scroll', updateSpherePositions);
+
+// Make functions globally available if needed
+window.navigateToIndex = navigateToIndex;
+window.navigateToYear = navigateToYear;
+window.playSound = playSound;
+window.harmonicMusic = harmonicMusic;
+window.updateActivePeriod = updateActivePeriod;
+window.updateCarouselArrows = updateCarouselArrows;
+window.repositionSpheres = repositionSpheres;
+window.repositionSpheresVerticallyWithCustomOffset = repositionSpheresVerticallyWithCustomOffset;
+
+
 
 export {
   navigateToIndex,
@@ -124,5 +129,5 @@ export {
   updateActivePeriod,
   updateCarouselArrows,      
   repositionSpheres,
-  repositionSpheresVerticallyWithCustomOffset,
+  updateSpherePositions,
 };
