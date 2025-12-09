@@ -120,7 +120,7 @@ window.updateCarouselArrows = updateCarouselArrows;
 window.repositionSpheres = repositionSpheres;
 window.repositionSpheresVerticallyWithCustomOffset = repositionSpheresVerticallyWithCustomOffset;
 
-
+//teste
 
 export {
   navigateToIndex,
